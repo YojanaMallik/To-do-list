@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .status-alert {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            margin-bottom: 0;
+            height: 100%;
+        }
+
+        .status-alert.pending {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-alert.complete {
+            background-color: #d4edda;
+            color: #155724;
+        }
+    </style>
+</head>
+
+<body style="background-color: #f3fafd;">
+    <nav class="navbar navbar-expand-lg navbar-light"
+        style="background-color: #87ceeb; height: 80px; font-size: large;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html" style="color: #1a4285;"><strong>To-Do List</strong></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html" style="color: #1a4285;">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="color: #1a4285;">
+                            Select Planner
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="daily.html">Daily Planner</a></li>
+                            <li><a class="dropdown-item" href="monthly.html">Monthly Planner</a></li>
+                            <li><a class="dropdown-item" href="annual.html">Annual Planner</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <h3><span id="time" style="color: #1a4285; font-size: large;"></span></h3>
+                  </form>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h2 class="text-center" style="margin-top: 50px;">MONTHLY PLANNER</h2>
+        <div class="row">
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <div class="input-group">
+                        <input type="date" class="form-control" id="date">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" aria-describedby="emailHelp">
+                    <small id="emailHelp" class="form-text text-muted">Add an item to the list</small>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" rows="3"></textarea>
+                </div>
+                <button id="add" class="btn btn-primary my-4">Add to list</button>
+                <button id="clear" class="btn btn-primary my-4" onclick="clearMonthlyStorage()">Clear list</button>
+            </div>
+            <div class="col-9">
+                <div id="items" class="my-lg-4 mx-lg-4">
+                    <h2>Your Items</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+        <script>
+            let a;
+            let date;
+            let time;
+            const options = {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+            };
+            setInterval(() => {
+                a = new Date();
+                date = a.toLocaleDateString(undefined, options);
+                time = a.getHours() + ':' + a.getMinutes() + ':' + a.getSeconds();
+                const dayOfWeek = a.toLocaleDateString(undefined, { weekday: 'long' });
+                document.getElementById('time').innerHTML = date + " - Time: " + time;
+                document.getElementById('item-list').innerHTML = itemHTML;
+            }, 1000);
+    
+        </script>
+    <script src="scriptmonthly.js"></script>
+</body>
+
+</html>
